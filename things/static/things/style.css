@@ -1,0 +1,30 @@
+body {
+	background: white url("images/rapala.jpg");
+	background-size: cover;
+}
+
+
+    /* Full height */
+
+
+.navbar{
+	border-radius: 0;
+}
+
+.navbar-brand{
+	font-family: 'Satisfy', cursive;
+}
+
+.rotate90 {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+    bottom: 0;
+    display: block;
+    margin-left: 0;
+    /*margin-right: auto;*/
+    margin-top: auto;
+    margin-bottom: auto;
+}

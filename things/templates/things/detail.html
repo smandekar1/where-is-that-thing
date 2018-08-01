@@ -1,0 +1,96 @@
+{% extends 'things/base.html' %}
+{% block title %}{{ category }}{% endblock %}
+{% block albums_active %}active{% endblock %}
+
+{% block body %}
+<div class="container-fluid songs-container">
+
+    <div class="row">
+
+        <!-- Left Album Info -->
+        <div class="col-sm-4 col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a href="{% url 'things:detail' category.id %}">
+                        {% if category.category_picture %}
+                            <img src="{{ category.category_logo.url }}" class="img-responsive">
+ 
+                        {% else %} 
+                             <!-- <h3>No image to display</h3> -->
+                        {% endif %}
+
+                    
+
+                    </a>
+                    <h1>{{ category.category_title }}</h1>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Song Info -->
+        <div class="col-sm-8 col-md-9">
+
+            <ul class="nav nav-pills" style="margin-bottom: 10px;">
+                <li role="presentation" class="active"><a href="{% url 'things:detail' category.id %}">View All</a></li>
+                <li role="presentation"><a href="{% url 'things:create_thing' category.id %}">Add New Thing</a></li>
+            </ul>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <h3>All Things</h3>
+
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Picture</th>
+                            <th>Location</th>
+                            <th>Description</th>
+                            <th>Notes</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <div class="container-fluid">
+                            {% for thing in category.thing_set.all %}
+                                <tr>
+                                    <td>{{ thing.thing_title }}</td>
+                                    <td align="Left">
+                                        <img src="{{ thing.thing_picture.url }}" width="90"  class="rotate90">
+                                    </td>
+                                    <td>{{ thing.location}}
+                                    </td>
+                                    <td>{{thing.description}} 
+                                    </td>
+                                    <td>{{thing.notes}} 
+                                    </td>   
+                                    <td>
+                                        <form action="{% url 'things:delete_thing' category.id thing.id %}" method="post" style="display: inline;">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="thing_id" value="{{ thing.id }}" />
+                                            <button type="submit" class="btn btn-danger btn-xs">
+                                                <span class="glyphicon glyphicon-remove"></span>&nbsp; Delete
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </div>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

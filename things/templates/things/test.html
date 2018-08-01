@@ -1,0 +1,221 @@
+
+		{% if categorys %}
+			{% for category in categorys %}
+			    <div class="col-sm-4 col-lg-2">
+			        <div class="thumbnail">
+			            <div class="caption">
+			                <h2>{{ category.cateogry_title }}</h2>
+
+			                <!-- View Details -->
+			                <a href="{% url 'things:detail' album.id %}" class="btn btn-primary btn-sm" role="button">View Details</a>
+
+			                <!-- Delete Album -->
+			                <form action="{% url 'things:delete_category' category.id %}" method="post" style="display: inline;">
+			                    {% csrf_token %}
+			                    <input type="hidden" name="category_id" value="{{ category.id }}" />
+			                    <button type="submit" class="btn btn-default btn-sm">
+			                        <span class="glyphicon glyphicon-trash"></span>
+			                    </button>
+			                </form>
+
+			            </div>
+			        </div>
+			    </div>
+			    {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
+			{% endfor %}
+			{% else %}
+			<div class="col-sm-12">
+			    <br>
+			    <a href="{% url 'things:create_cateogory' %}">
+			        <button type="button" class="btn btn-success">
+			            <span class="glyphicon glyphicon-plus"></span>&nbsp; Add an Album
+			        </button>
+			    </a>
+			</div>
+			{% endif %}
+			</div>
+
+
+
+						                <!-- Delete Album -->
+			                <form action="{% url 'things:delete_category' category.id %}" method="post" style="display: inline;">
+			                    {% csrf_token %}
+			                    <input type="hidden" name="category_id" value="{{ category.id }}" />
+			                    <button type="submit" class="btn btn-default btn-sm">
+			                        <span class="glyphicon glyphicon-trash"></span>
+			                    </button>
+			                </form>
+
+
+
+from details 
+
+<div class="container-fluid songs-container">
+
+    <div class="row">
+
+        <!-- Left Album Info -->
+        <div class="col-sm-4 col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+<!--                     <a href="{% url 'things:detail' thing.id %}">
+                        {% if thing.thing_picture %}
+                            <img src="{{ thing.thing_picture.url }}" class="img-responsive">
+                        {% else %}
+                            <h3>No image to display</h3>
+                        {% endif %}
+                    </a> -->
+                    <h1>{{ category.category_title }} <small>{{ category.category_title }}</small></h1>
+                    <!-- <h2>{{ thing.location }}</h2> -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Song Info -->
+        <div class="col-sm-8 col-md-9">
+
+            <ul class="nav nav-pills" style="margin-bottom: 10px;">
+                <li role="presentation" class="active"><a href="{% url 'things:detail' category.id %}">View All</a></li>
+                <li role="presentation"><a href="{% url 'thing:create_thing' thing.id %}">Add New Song</a></li>
+            </ul>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <h3>All Things</h3>
+
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Audio File</th>
+                            <th>Favorite</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for thing in category.thing_set.all %}
+                            <tr>
+                                <td>{{ thing.thing_title }}</td>
+                                <td>
+                                    <a target="_blank" href="{{ song.audio_file.url }}">
+                                        <button type="button" class="btn btn-success btn-xs">
+                                            <span class="glyphicon glyphicon-play"></span>&nbsp; Play
+                                        </button>
+                                    </a>
+                                </td>
+                                <td>
+                                    <form action="{% url 'things:delete_thing' thing.id thing.id %}" method="post" style="display: inline;">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="thing_id" value="{{ thing.id }}" />
+                                        <button type="submit" class="btn btn-danger btn-xs">
+                                            <span class="glyphicon glyphicon-remove"></span>&nbsp; Delete
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+            <td>
+                <a target="_blank" href="{{ song.audio_file.url }}">
+                    <button type="button" class="btn btn-success btn-xs">
+                        <span class="glyphicon glyphicon-play"></span>&nbsp; Play
+                    </button>
+                </a>
+            </td>
+            <td>
+                <form action="{% url 'things:delete_thing' thing.id thing.id %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <input type="hidden" name="thing_id" value="{{ thing.id }}" />
+                    <button type="submit" class="btn btn-danger btn-xs">
+                        <span class="glyphicon glyphicon-remove"></span>&nbsp; Delete
+                    </button>
+                </form>
+            </td>
+
+
+
+{% extends 'things/base.html' %}
+<!-- {% block title %}Add a New Thing{% endblock %} -->
+<!-- {% block things_active %}active{% endblock %} -->
+
+{% block body %}
+<div class="container-fluid">
+
+	<div class="row">
+
+
+			<div class="col-sm-12 col-md-7">
+				<div class="panel panel-default">
+					<div class="panel-body">
+
+						<form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+							{% csrf_token %}
+							{% include 'things/form_template.html' %}
+							<div class="form-group">
+								<div class="col-sm-offset-2 col-sm-10">
+								<button type="submit" class="btn btn-success">Submit</button>
+								</div>	
+						</form>
+
+					</div>
+
+				</div>
+
+			</div>
+
+	</div>
+
+</div>
+
+{% endblock %}
+
+
+class UserFormView(View):
+	form_class = UserForm
+	template_name = 'things/registration_form.html'
+
+	# display black form
+	def get(self, request):
+		form = self.form_class(None)
+		return render(request, self.template_name, {'form': form})
+
+	def post(self, request):
+		form = self.form_class(request.POST)
+
+		if form.is_valid():
+
+			user = form.save(commit = False)
+
+			#cleaned data
+			username = form.cleaned_data['username']
+			password = form.cleaned_data['password']
+			user.set_password(password)
+			user.save()
+
+			#return user objects if creds are correct:
+			user = authenticate(username=username, password=password)
+
+			if user is not None:
+
+				if user.is_active:
+					login(request, user)
+					return redirect('things:index')
+
+		return render(request, self.template_name, {'form: form'})

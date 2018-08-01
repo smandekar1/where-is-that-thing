@@ -1,0 +1,97 @@
+{% extends 'things/base.html' %}
+{% block categorys_active %}active{% endblock %}
+
+ 
+
+{% block body %}
+<div class="categorys-container container-fluid">
+
+	<!-- Categorys  -->
+	<div class="row">
+		<div class="col-sm-12">
+
+			{% if user.is_active %}
+				<h3> Welcome {{ user.username }}</h3>
+			{% endif %}
+		</div>
+
+		{% if categorys %}
+			{% for category in categorys %}
+			    <div class="col-sm-4 col-lg-2">
+			        <div class="thumbnail">
+			            <div class="caption">
+			                <h3>{{ category.category_title }}</h3>
+
+			                <!-- View Details -->
+			                <a href="{% url 'things:detail' category.id %}" class="btn btn-primary btn-sm" role="button">View Details</a>
+
+
+
+			            </div>
+			        </div>
+			    </div>
+			    {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
+			{% endfor %}
+			{% else %}
+			<div class="col-sm-12">
+			    <br>
+			    <a href="{% url 'things:create_category' %}">
+			        <button type="button" class="btn btn-success">
+			            <span class="glyphicon glyphicon-plus"></span>&nbsp; Add a Category
+			        </button>
+			    </a>
+			</div>
+			{% endif %}
+			</div>
+
+		    <!-- If user searches and there are songs -->
+	    {% if things %}
+	        <div class="row">
+	            <div class="col-sm-12">
+	                <h3>Things</h3>
+	            </div>
+	            <div class="col-sm-12">
+	                <div class="panel panel-default">
+	                    <div class="panel-body">
+	                        <table class="table">
+	                            <thead>
+	                                <tr>
+	                                    <th>Thing Title</th>
+	                                    <th>Picture</th>
+	                                    <th>Location</th>
+	                                    <th>Description</th>
+	                                    <th>Notes</th>
+	                                </tr>
+	                            </thead>
+	                            <tbody>
+	                                {% for thing in things %}
+	                                    <tr>
+	                                        <td>{{ thing.thing_title }}</td>
+                         					<td><img style="vertical-align: center" src="{{ thing.thing_picture.url }}" height="100" class="rotate90"></td>
+                                			</td>
+	                                        <td>{{ thing.location }}</td>
+	                                        <td>{{ thing.description }}</td>
+	                                        <td>{{ thing.notes }}</td>
+
+	                                    </tr>
+	                                {% endfor %}
+	                            </tbody>
+	                        </table>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    {% endif %}
+
+	</div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
