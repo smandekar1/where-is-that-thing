@@ -6,14 +6,19 @@ App that helps users remember where they last put things.  Personal items can be
 View items  <br>
 
 
-<a href=""><img src="https://github.com/smandekar1/where-is-that-thing/blob/master/media/ScreenShot1.JPG?raw=true" align="left" height="300"></a>  <br>
-
-<br>Edit items  </br>
+<a href=""><img src="https://github.com/smandekar1/where-is-that-thing/blob/master/media/ScreenShot1.JPG?raw=true" align="left" height="300"></a><br>
 
 
-<a href=""><img src="https://github.com/smandekar1/where-is-that-thing/blob/master/media/ScreenShot2.JPG?raw=true" align="left" height="300"></a>  </br>
+Edit items  
+
+
+
+<img src="https://github.com/smandekar1/where-is-that-thing/blob/master/media/ScreenShot2.JPG?raw=true" align="left" height="300">  </br>
+
+
 
 Add items  </br>
+
 
 
 <a href=""><img src="https://github.com/smandekar1/where-is-that-thing/blob/master/media/ScreenShot3.JPG?raw=true" align="left" height="300"></a>  </br>
