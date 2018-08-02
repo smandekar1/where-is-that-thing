@@ -11,7 +11,6 @@ App that helps users remember where they last put things.  Personal items can be
 
 ![](https://github.com/smandekar1/where-is-that-thing/blob/master/media/ScreenShot2.JPG)
 
-
-
+## Add items
 ![](https://github.com/smandekar1/where-is-that-thing/blob/master/media/ScreenShot3.JPG)
-![](http://i.imgur.com/RsGZfUq.png)
+
