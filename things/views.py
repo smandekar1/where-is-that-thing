@@ -9,7 +9,8 @@ from .forms import UserForm, CategoryForm, ThingForm
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
 from django.http import JsonResponse
-from .models import Thing, Category
+from .models import Thing, Category, Addresses
+import csv
 
 
 AUDIO_FILE_TYPES = ['wav', 'mp3', 'ogg']
@@ -161,13 +162,11 @@ def register(request):
     }
     return render(request, 'things/register.html', context)
 
-# class DetailView(generic.DetailView):
-# 	model = Thing 
-# 	template_name = 'things/detail.html'
 
-# class ThingCreate(CreateView):
-# 	model = Thing
-# 	fields = ['thing_title','description', 'category','thing_picture','location','notes']
+def addresses(request):
+        addresses_results=Addresses.objects.all()
+
+        return render(request, 'things/addresses.html', {'addresses': addresses_results})
 
 def detail(request, category_id):
     if not request.user.is_authenticated:
